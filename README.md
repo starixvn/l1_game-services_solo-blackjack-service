@@ -1,1 +1,2 @@
-# Solo Blackjack
+# vip-sedie-service
+
