@@ -1,6 +1,6 @@
 export default {
-    id: 23,
-    name: "BlackJack",
+    id: 115,
+    name: "SoloBlackJack",
     durations: {
         wholeAction: 60,
         wholeRound: 60,

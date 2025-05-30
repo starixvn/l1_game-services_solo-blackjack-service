@@ -10,27 +10,27 @@ import {
     UserStandConsumer,
 } from "./consumers";
 import SettleGameConsumer from "./consumers/settle-game-consumer";
-import BlackJackBot from "./crons/blackjack-bot";
-import BlackJackProcessBetQueue from "./crons/blackjack-process-bet-queue";
+import SoloBlackJackBot from "./crons/solo-blackjack-bot";
+import SoloBlackJackProcessBetQueue from "./crons/solo-blackjack-process-bet-queue";
 import GameCron from "./crons/game-cron";
 
-import { BlackJackBets } from "./models/blackjack-bets";
-import { BlackJackRounds } from "./models/blackjack-rounds";
+import { SoloBlackJackBets } from "./models/solo-blackjack-bets";
+import { SoloBlackJackRounds } from "./models/solo-blackjack-rounds";
 import RoundResultPublisher from "./publishers/round-result-publisher";
 import HistoryQuery from "./query-apis/history-query";
-import BlackJackSocketRouter from "./routers/blackjack-socket-router";
+import SoloBlackJackSocketRouter from "./routers/solo-blackjack-socket-router";
 import HttpRouter from "./routers/http-router";
 import { gameNotifications } from 'sc-base-database';
 
 const { asClass, asValue } = awilix;
 
-export default class BlackjackContainerRegistry extends Table.TableContainerRegistry {
+export default class SoloBlackjackContainerRegistry extends Table.TableContainerRegistry {
     registerModels() {
         super.registerModels();
 
         this.container.register({
-            roundsRepository: asValue(BlackJackRounds),
-            betsRepository: asValue(BlackJackBets),
+            roundsRepository: asValue(SoloBlackJackRounds),
+            betsRepository: asValue(SoloBlackJackBets),
             gameNotificationsRepository: asValue(gameNotifications),
         });
     }
@@ -62,7 +62,7 @@ export default class BlackjackContainerRegistry extends Table.TableContainerRegi
         super.registerRouters();
 
         this.container.register({
-            socketRouter: asClass(BlackJackSocketRouter).proxy(),
+            socketRouter: asClass(SoloBlackJackSocketRouter).proxy(),
             httpRouter: asClass(HttpRouter),
         });
     }
@@ -71,9 +71,9 @@ export default class BlackjackContainerRegistry extends Table.TableContainerRegi
         super.registerCrons();
 
         this.container.register({
-            processBetQueue: asClass(BlackJackProcessBetQueue).singleton().proxy(),
+            processBetQueue: asClass(SoloBlackJackProcessBetQueue).singleton().proxy(),
             gameCron: asClass(GameCron).singleton().proxy(),
-            bot: asClass(BlackJackBot).singleton(),
+            bot: asClass(SoloBlackJackBot).singleton(),
         });
     }
 

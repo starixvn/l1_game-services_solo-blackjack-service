@@ -10,8 +10,8 @@ import { generateDecks } from "./../helpers/deck-helper";
 
 export default class GameCron extends Core.Crons.BaseGameCron {
     /**
-     * @param {BlackjackGameDefinition} definition
-     * @param {BlackJackGameData} gameData
+     * @param {SoloBlackJackGameDefinition} definition
+     * @param {SoloBlackJackGameData} gameData
      */
     constructor({
         definition,

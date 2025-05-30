@@ -1,2 +1,2 @@
-# vip-sedie-service
+# solo-blackjack
 

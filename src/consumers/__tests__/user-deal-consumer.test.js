@@ -1,7 +1,7 @@
 import BaseEventPublishers from "sc-game-base/src/core/event-publishers/base-event-publisher";
 
-import BlackjackGameData from "../../blackjack-game-data";
-import BlackjackGameDefinition from "../../blackjack-game-definition";
+import SoloBlackJackGameData from "../../solo-blackjack-game-data";
+import SoloBlackJackGameDefinition from "../../solo-blackjack-game-definition";
 import gameSettings from "../../game-settings";
 import noticeHelper from "../../helpers/notice-helper";
 import UserDealConsumer from "../user-deal-consumer";
@@ -10,9 +10,9 @@ import mongoose from "mongoose";
 
 jest.mock("sc-game-base/src/core/event-publishers/base-event-publisher");
 
-/** @type {BlackjackGameDefinition}*/
+/** @type {SoloBlackJackGameDefinition}*/
 let definition = null;
-/** @type {BlackjackGameData}*/
+/** @type {SoloBlackJackGameData}*/
 let gameData = null;
 const publisher = new BaseEventPublishers();
 
@@ -24,8 +24,8 @@ const _Date = Date;
 global.Date = jest.fn(() => DATE_TO_USE);
 
 beforeEach(() => {
-    definition = new BlackjackGameDefinition(gameSettings);
-    gameData = new BlackjackGameData(gameSettings.durations.wholeRound);
+    definition = new SoloBlackJackGameDefinition(gameSettings);
+    gameData = new SoloBlackJackGameData(gameSettings.durations.wholeRound);
     gameData.gameConfigs = {
         enabled: true,
         disabledround: 6912,

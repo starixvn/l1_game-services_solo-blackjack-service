@@ -3,20 +3,20 @@ import { logger } from "sc-common";
 import { BaseMetrics } from "sc-game-base/src/core/base-metrics";
 import { PlaceBetPublisher } from "sc-game-base/src/core/event-publishers";
 
-import BlackjackGameData from "../../blackjack-game-data";
-import BlackjackGameDefinition from "../../blackjack-game-definition";
+import SoloBlackJackGameData from "../../solo-blackjack-game-data";
+import SoloBlackJackGameDefinition from "../../solo-blackjack-game-definition";
 import SettleGameConsumer from "../../consumers/settle-game-consumer";
 import gameSettings from "../../game-settings";
 import { generateDecks } from "../../helpers/deck-helper";
-import BlackJackProcessBetQueue from "../blackjack-process-bet-queue";
+import SoloBlackJackProcessBetQueue from "../solo-blackjack-process-bet-queue";
 
 jest.mock("sc-game-base/src/core/event-publishers");
 jest.mock("../../consumers/settle-game-consumer");
 jest.mock("sc-common");
 
-/** @type {BlackjackGameDefinition}*/
+/** @type {SoloBlackJackGameDefinition}*/
 let definition = null;
-/** @type {BlackjackGameData}*/
+/** @type {SoloBlackJackGameData}*/
 let gameData = null;
 
 const placeBetPublisher = new PlaceBetPublisher();
@@ -43,8 +43,8 @@ const baseMetrics = stub(BaseMetrics);
 let processBetQueue = null;
 
 beforeEach(() => {
-    definition = new BlackjackGameDefinition(gameSettings);
-    gameData = new BlackjackGameData(gameSettings.durations.wholeRound);
+    definition = new SoloBlackJackGameDefinition(gameSettings);
+    gameData = new SoloBlackJackGameData(gameSettings.durations.wholeRound);
     gameData.gameConfigs = {
         enabled: true,
         minbet: 1,
@@ -57,7 +57,7 @@ beforeEach(() => {
         choices_maxbet: null,
     };
 
-    processBetQueue = new BlackJackProcessBetQueue({
+    processBetQueue = new SoloBlackJackProcessBetQueue({
         definition,
         gameData,
         placeBetPublisher,

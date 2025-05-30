@@ -1,16 +1,16 @@
 import BaseEventPublishers from "sc-game-base/src/core/event-publishers/base-event-publisher";
 
-import BlackjackGameData from "../../blackjack-game-data";
-import BlackjackGameDefinition from "../../blackjack-game-definition";
+import SoloBlackJackGameData from "../../solo-blackjack-game-data";
+import SoloBlackJackGameDefinition from "../../solo-blackjack-game-definition";
 import gameSettings from "../../game-settings";
 import noticeHelper from "../../helpers/notice-helper";
 import UserSplitConsumer from "../user-split-consumer";
 
 jest.mock("sc-game-base/src/core/event-publishers/base-event-publisher");
 
-/** @type {BlackjackGameDefinition}*/
+/** @type {SoloBlackJackGameDefinition}*/
 let definition = null;
-/** @type {BlackjackGameData}*/
+/** @type {SoloBlackJackGameData}*/
 let gameData = null;
 const publisher = new BaseEventPublishers();
 
@@ -54,8 +54,8 @@ const mockInGamePlayer = () => ({
 });
 
 beforeEach(() => {
-    definition = new BlackjackGameDefinition(gameSettings);
-    gameData = new BlackjackGameData(gameSettings.durations.wholeRound);
+    definition = new SoloBlackJackGameDefinition(gameSettings);
+    gameData = new SoloBlackJackGameData(gameSettings.durations.wholeRound);
     gameData.gameConfigs = {
         enabled: true,
         minbet: 1,

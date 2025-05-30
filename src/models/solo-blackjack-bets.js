@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const modelName = "BlackJack_cuoc";
+const modelName = "soloblackjack_bets";
 
 const schema = new mongoose.Schema({
     id: { type: Number, default: 0 },
@@ -31,4 +31,4 @@ const schema = new mongoose.Schema({
 
 const bets = mongoose.model(modelName, schema);
 
-export { bets as BlackJackBets };
+export { bets as SoloBlackJackBets };

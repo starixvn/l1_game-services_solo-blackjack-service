@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const modelName = "BlackJack_phien";
+const modelName = "soloblackjack_rounds";
 
 const Schema = new mongoose.Schema({
     result: { type: Array },
@@ -17,4 +17,4 @@ const Schema = new mongoose.Schema({
 
 const rounds = mongoose.model(modelName, Schema);
 
-export { rounds as BlackJackRounds };
+export { rounds as SoloBlackJackRounds };

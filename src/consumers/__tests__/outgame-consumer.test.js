@@ -1,5 +1,5 @@
-import BlackjackGameDefinition from "../../blackjack-game-definition";
-import BlackjackGameData from "../../blackjack-game-data";
+import SoloBlackJackGameDefinition from "../../solo-blackjack-game-definition";
+import SoloBlackJackGameData from "../../solo-blackjack-game-data";
 import gameSettings from "../../game-settings";
 import OutGameConsumer from "../outgame-consumer";
 jest.useFakeTimers();
@@ -12,9 +12,9 @@ jest.mock("sc-base-database", () => ({
     },
 }));
 
-/** @type {BlackjackGameDefinition}*/
+/** @type {SoloBlackJackGameDefinition}*/
 let definition = null;
-/** @type {BlackjackGameData}*/
+/** @type {SoloBlackJackGameData}*/
 let gameData = null;
 
 /** @type {UserDouInGameConsumerbleConsumer}*/
@@ -32,8 +32,8 @@ const realPlayer = {
 };
 
 beforeEach(() => {
-    definition = new BlackjackGameDefinition(gameSettings);
-    gameData = new BlackjackGameData(gameSettings.durations.wholeRound);
+    definition = new SoloBlackJackGameDefinition(gameSettings);
+    gameData = new SoloBlackJackGameData(gameSettings.durations.wholeRound);
     gameData.gameConfigs = {
         enabled: true,
         minbet: 1,

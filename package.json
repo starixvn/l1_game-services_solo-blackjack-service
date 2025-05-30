@@ -1,5 +1,5 @@
 {
-    "name": "sc1-blackjack-service",
+    "name": "sc1-solo-blackjack-service",
     "version": "1.0.0",
     "description": "",
     "main": "./src/app.js",

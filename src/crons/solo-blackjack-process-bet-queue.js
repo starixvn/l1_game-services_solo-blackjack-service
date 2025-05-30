@@ -9,7 +9,7 @@ import gameSettings from "../game-settings";
 import { calculate, calculateFinalValue, isAce, isBlackjack } from "../helpers/card-helper";
 import { generateDecks } from "../helpers/deck-helper";
 
-export default class BlackJackProcessBetQueue extends ProcessBetQueue {
+export default class SoloBlackJackProcessBetQueue extends ProcessBetQueue {
     baseDeck = [...cards, ...cards, ...cards, ...cards, ...cards, ...cards];
     posOrder = [1, 4, 2, 5, 3, 6];
 

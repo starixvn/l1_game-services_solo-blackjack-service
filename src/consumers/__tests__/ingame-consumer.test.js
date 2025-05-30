@@ -1,5 +1,5 @@
-import BlackjackGameDefinition from "../../blackjack-game-definition";
-import BlackjackGameData from "../../blackjack-game-data";
+import SoloBlackJackGameDefinition from "../../solo-blackjack-game-definition";
+import SoloBlackJackGameData from "../../solo-blackjack-game-data";
 import gameSettings from "../../game-settings";
 import InGameConsumer from "../ingame-consumer";
 import mongoose from "mongoose";
@@ -8,9 +8,9 @@ import roundQuery from "sc-game-base/src/core/query-apis/round-query";
 jest.mock("sc-game-base/src/core/query-apis/round-query");
 const getBalance = jest.fn();
 
-/** @type {BlackjackGameDefinition}*/
+/** @type {SoloBlackJackGameDefinition}*/
 let definition = null;
-/** @type {BlackjackGameData}*/
+/** @type {SoloBlackJackGameData}*/
 let gameData = null;
 
 const userInfosExecMockFunc = jest.fn();
@@ -49,8 +49,8 @@ const user = {
 userInfosExecMockFunc.mockReturnValue(user);
 
 beforeEach(() => {
-    definition = new BlackjackGameDefinition(gameSettings);
-    gameData = new BlackjackGameData(gameSettings.durations.wholeRound);
+    definition = new SoloBlackJackGameDefinition(gameSettings);
+    gameData = new SoloBlackJackGameData(gameSettings.durations.wholeRound);
     gameData.gameConfigs = {
         enabled: true,
         enableFreeBet: false,

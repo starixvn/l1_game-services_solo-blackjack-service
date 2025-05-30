@@ -1,5 +1,5 @@
-import BlackjackGameDefinition from "../../blackjack-game-definition";
-import BlackjackGameData from "../../blackjack-game-data";
+import SoloBlackJackGameDefinition from "../../solo-blackjack-game-definition";
+import SoloBlackJackGameData from "../../solo-blackjack-game-data";
 import gameSettings from "../../game-settings";
 import BaseEventPublishers from "sc-game-base/src/core/event-publishers/base-event-publisher";
 import noticeHelper from "../../helpers/notice-helper";
@@ -11,9 +11,9 @@ import { gameNotifications } from "sc-base-database";
 jest.mock("../../publishers/round-result-publisher");
 jest.mock("sc-base-database");
 
-/** @type {BlackjackGameDefinition}*/
+/** @type {SoloBlackJackGameDefinition}*/
 let definition = null;
-/** @type {BlackjackGameData}*/
+/** @type {SoloBlackJackGameData}*/
 let gameData = null;
 const roundResultPublisher = new RoundResultPublisher();
 
@@ -43,8 +43,8 @@ const endGame = jest.fn();
 endGame.mockReturnValue({ isOk: true });
 
 beforeEach(() => {
-    definition = new BlackjackGameDefinition(gameSettings, generateResult, settle, gameSettings.actions, gameSettings.payouts);
-    gameData = new BlackjackGameData(gameSettings.durations.wholeRound);
+    definition = new SoloBlackJackGameDefinition(gameSettings, generateResult, settle, gameSettings.actions, gameSettings.payouts);
+    gameData = new SoloBlackJackGameData(gameSettings.durations.wholeRound);
     gameData.gameConfigs = {
         enabled: true,
         minbet: 1,

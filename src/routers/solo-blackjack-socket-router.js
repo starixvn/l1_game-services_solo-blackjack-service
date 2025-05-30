@@ -1,13 +1,13 @@
 import { Core } from "sc-game-base";
 import { logger } from "sc-common";
 
-import BlackJackGameData from "./../blackjack-game-data";
-import BlackjackGameDefinition from "./../blackjack-game-definition";
+import SoloBlackJackGameData from "../solo-blackjack-game-data";
+import SoloBlackJackGameDefinition from "../solo-blackjack-game-definition";
 
-export default class BlackJackSocketRouter extends Core.Routers.BaseSocketRouter {
+export default class SoloBlackJackSocketRouter extends Core.Routers.BaseSocketRouter {
     /**
-     * @param {BlackjackGameDefinition} definition
-     * @param {BlackJackGameData} gameData
+     * @param {SoloBlackJackGameDefinition} definition
+     * @param {SoloBlackJackGameData} gameData
      */
     constructor({
         definition,
