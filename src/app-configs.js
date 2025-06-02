@@ -2,8 +2,8 @@ export default {
     hostingPort: 8005,
     apiSettings: {
         enabledApi: true,
-        apiUrl: "http://api.lumigame.com",
-        authUrl: "http://auth.lumigame.com",
+        apiUrl: "https://l1-proxy1.lumigame.com/game-api",
+        authUrl: "http://l1-auth1.lumigame.com",
         client: {
             id: "game-server",
             secret: "gameserver@20luminet&",
@@ -21,7 +21,7 @@ export default {
     },
     enabledLogs: true,
     database: {
-        url: "mongodb://127.0.0.1:27017",
+        url: "mongodb://lmn_backend:LmnBackend@10.10.50.12:39101,10.10.50.13:39101,10.10.50.14:39101/?replicaSet=L1pLocal&appName=SoloBlackjack",
         options: {
             dbName: "minigame",
             useNewUrlParser: true,
@@ -30,20 +30,20 @@ export default {
         },
     },
     sentry: {
-        sentryUrl: "https://3e83be2959554962ba5ee12fde73db99@sentryuat.sabagame.com/131",
+        sentryUrl: "https://13f39b8359404ed5aec23655e64ccf78@sentry.lumigame.com/2",
         logIdentifier: "soloblackjack",
         env: "LOCAL",
     },
     authenticateSettings: {
-        url: "http://auth.lumigame.com",
+        url: "http://l1-auth1.lumigame.com",
         id: "game-services",
         secret: "gameservices@20luminet&",
         requestTimeout: 10000,
-        useAuthenticate: false,
+        useAuthenticate: true,
         audiences: ["api", "admin-api"],
     },
     userServiceSettings: {
-        url: "http://127.0.0.1:5000",
+        url: "https://l1-proxy1.lumigame.com/user",
     },
     adminSecretKey: "asWDEerfOIdgsdqRTFabvmgh",
     roundMaxDuration: 24,

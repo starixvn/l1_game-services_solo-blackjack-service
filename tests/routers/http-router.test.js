@@ -1,6 +1,7 @@
 import TableHttpRouter from "sc-game-base/src/table/routers/table-http-router";
 import HttpRouter from "../../src/routers/http-router";
 import BaseEventPublishers from "sc-game-base/src/core/event-publishers/base-event-publisher";
+import SoloBlackjackGameData from "../../src/solo-blackjack-game-data";
 
 jest.mock("sc-base-database");
 jest.mock("sc-common");
@@ -14,7 +15,7 @@ describe("HttpRouter", () => {
     const app = {
         get: jest.fn(),
         post: (url, authenticate, callBack) => {
-            callBack && callBack({}, { send: jest.fn() });
+            callBack && callBack({ body: { name: "test" } }, { send: jest.fn() });
         },
         calledPost: false,
     };
@@ -27,7 +28,7 @@ describe("HttpRouter", () => {
         },
     };
     const logService = { logError: jest.fn() };
-    const gameData = {};
+    const gameData = new SoloBlackjackGameData();
     const historyQuery = {};
     const metricQuery = {};
 

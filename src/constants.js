@@ -3,7 +3,7 @@ export default {
     blackJack: 21,
     reduceValueOfAce: 10,
     minPlayerHand: 1,
-    maxPlayerHand: 3,
+    maxPlayerHand: 1,
     allowDoubleValues: [9, 10, 11],
     aceValue: 11,
     JQKValue: 10,

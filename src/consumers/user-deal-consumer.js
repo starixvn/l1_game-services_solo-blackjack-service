@@ -30,7 +30,7 @@ export default class UserDealConsumer extends BaseActionConsumer {
             });
         }
 
-        if (deal.hands.some((hand) => !hand.pos || hand.pos < 1 || hand.pos > 3)) {
+        if (deal.hands.some((hand) => !hand.pos || hand.pos !== 1)) {
             result.push({
                 failure: true,
                 notice: this.getNoticeObj(noticeHelper.invalidPosition),

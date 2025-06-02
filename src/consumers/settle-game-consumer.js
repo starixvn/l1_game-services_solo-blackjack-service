@@ -10,7 +10,8 @@ export default class SettleGameConsumer extends Core.BaseEventConsumers.SettleGa
         const { result, settlementResult } = this.definition.generateResult(
             betTrack.dealer.cards,
             betTrack.deck,
-            isUpCards(betTrack.hands)
+            isUpCards(betTrack.hands),
+            this.gameData.settlementResultFromAdmin[playerName]?.dealer ?? []
         );
 
         const round = await this.roundsRepository.findOne({ id: betTrack.roundId }).lean().exec();
@@ -36,6 +37,7 @@ export default class SettleGameConsumer extends Core.BaseEventConsumers.SettleGa
         await this.settleBets({ ...finish, playerName, playerUID: betTrack.uid });
 
         await gameNotifications.deleteOne({ uid: betTrack.uid, gameId: this.definition.id });
+        delete this.gameData.settlementResultFromAdmin[playerName];
     }
 
     async queryBets(roundId) {

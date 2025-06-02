@@ -2,7 +2,6 @@ import _ from "lodash";
 import { helpers } from "sc-common";
 import ProcessBetQueue from "sc-game-base/src/core/crons/process-bet-queue";
 
-import { cards } from "../card";
 import constants from "../constants";
 import SettleGameConsumer from "../consumers/settle-game-consumer";
 import gameSettings from "../game-settings";
@@ -10,9 +9,6 @@ import { calculate, calculateFinalValue, isAce, isBlackjack } from "../helpers/c
 import { generateDecks } from "../helpers/deck-helper";
 
 export default class SoloBlackJackProcessBetQueue extends ProcessBetQueue {
-    baseDeck = [...cards, ...cards, ...cards, ...cards, ...cards, ...cards];
-    posOrder = [1, 4, 2, 5, 3, 6];
-
     /**
      * @param {SettleGameConsumer} settleGameRoundConsumer
      */
