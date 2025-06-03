@@ -96,6 +96,7 @@ describe("validation test", () => {
 
         expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.maxBet, maxBet: 3000 } });
     });
+
     it("payload has no hand, return correct error", async () => {
         const payload = {
             deal: {
@@ -107,6 +108,7 @@ describe("validation test", () => {
 
         expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.invalidDealHands } });
     });
+
     it("payload has hand having invalid postion, return correct error", async () => {
         const payload = {
             deal: {
@@ -118,6 +120,7 @@ describe("validation test", () => {
 
         expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.invalidPosition } });
     });
+
     it("gameData has running round, return correct error", async () => {
         const payload = {
             deal: {
@@ -136,5 +139,32 @@ describe("validation test", () => {
         const result = await consumer.composeActionValidationCriteria(player, payload);
 
         expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.invalidDealDueToRunningRound } });
+    });
+
+    it("payload has bet amount less than minbet, return correct error", async () => {
+        const payload = {
+            deal: {
+                hands: [{ pos: 1, bet: 0 }],
+            },
+        };
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.minBet, minBet: 1 } });
+    });
+    it("payload has too many hands, return correct error", async () => {
+        const payload = {
+            deal: {
+                hands: [
+                    { pos: 1, bet: 100 },
+                    { pos: 2, bet: 100 },
+                    { pos: 3, bet: 100 },
+                ],
+            },
+        };
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.invalidDealHands } });
     });
 });

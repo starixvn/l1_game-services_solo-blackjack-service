@@ -152,4 +152,16 @@ describe("validation test", () => {
 
         expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.handNotActive } });
     });
+
+    it("player not in game, return correct error", async () => {
+        const payload = {
+            stand: {
+                id: 100,
+            },
+        };
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.invalidHandId } });
+    });
 });

@@ -89,7 +89,7 @@ describe("consume test", () => {
         });
     });
 
-    it("invalid payload, publish error to user, not updating betTracs", async () => {
+    it("invalid payload, publish error to user, not updating betTracks", async () => {
         const payload = {
             hit: {
                 id: 200,
@@ -104,6 +104,7 @@ describe("consume test", () => {
         expect(publisher.publishToUser).toHaveBeenCalled();
     });
 });
+
 describe("validation test", () => {
     it("hand is stand, return correct error", async () => {
         const payload = {
@@ -135,5 +136,40 @@ describe("validation test", () => {
         const result = await consumer.composeActionValidationCriteria(player, payload);
 
         expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.invalidHandId } });
+    });
+
+    it("hand has blackjack, return correct error", async () => {
+        const payload = {
+            hit: {
+                id: 100,
+            },
+        };
+
+        const ingamePlayer = mockInGamePlayer();
+        gameData.ingame[player.profile.name] = ingamePlayer;
+        ingamePlayer.betTracks.hands[0].cards = [
+            { rank: "A", suit: 0 },
+            { rank: "K", suit: 1 },
+        ];
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.cantHit } });
+    });
+
+    it("hand is not active, return correct error", async () => {
+        const payload = {
+            hit: {
+                id: 100,
+            },
+        };
+
+        const ingamePlayer = mockInGamePlayer();
+        gameData.ingame[player.profile.name] = ingamePlayer;
+        ingamePlayer.betTracks.activeHandId = 200;
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.handNotActive } });
     });
 });

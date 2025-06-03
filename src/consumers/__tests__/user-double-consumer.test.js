@@ -161,4 +161,58 @@ describe("validation test", () => {
 
         expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.handNotActive } });
     });
+
+    it("hand has more than 2 cards, return correct error", async () => {
+        const payload = {
+            double: {
+                id: 100,
+            },
+        };
+
+        const ingamePlayer = mockInGamePlayer();
+        gameData.ingame[player.profile.name] = ingamePlayer;
+        ingamePlayer.betTracks.hands[0].cards.push({ rank: "2", suit: 2 });
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.cantDoubleHand } });
+    });
+
+    it("hand has another hand split from it, return correct error", async () => {
+        const payload = {
+            double: {
+                id: 100,
+            },
+        };
+
+        const ingamePlayer = mockInGamePlayer();
+        gameData.ingame[player.profile.name] = ingamePlayer;
+        ingamePlayer.betTracks.hands.push({
+            id: 101,
+            cards: [{ rank: "8", suit: 0 }, { rank: "A", suit: 1 }],
+            isStand: false,
+            actions: [],
+            splitFrom: 100
+        });
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.cantDoubleHand } });
+    });
+
+    it("double bet exceeds max bet, return correct error", async () => {
+        const payload = {
+            double: {
+                id: 100,
+            },
+        };
+
+        const ingamePlayer = mockInGamePlayer();
+        gameData.ingame[player.profile.name] = ingamePlayer;
+        ingamePlayer.betTracks.hands[0].bet = 2000; // Double would be 4000 > maxBet 3000
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.maxBet, maxBet: 3000 } });
+    });
 });

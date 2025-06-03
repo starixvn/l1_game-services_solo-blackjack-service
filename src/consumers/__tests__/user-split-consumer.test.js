@@ -169,4 +169,58 @@ describe("validation test", () => {
 
         expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.cantSplitChildHand } });
     });
+
+    it("hand already split, return correct error", async () => {
+        const payload = {
+            split: {
+                id: 100,
+            },
+        };
+
+        const ingamePlayer = mockInGamePlayer();
+        gameData.ingame[player.profile.name] = ingamePlayer;
+        ingamePlayer.betTracks.hands.push({
+            id: 101,
+            cards: [{ rank: "8", suit: 0 }, { rank: "8", suit: 1 }],
+            isStand: false,
+            actions: [],
+            splitFrom: 100
+        });
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.handAlreadySplit } });
+    });
+
+    it("cards not equal, return correct error", async () => {
+        const payload = {
+            split: {
+                id: 100,
+            },
+        };
+
+        const ingamePlayer = mockInGamePlayer();
+        gameData.ingame[player.profile.name] = ingamePlayer;
+        ingamePlayer.betTracks.hands[0].cards[1] = { rank: "9", suit: 1 };
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.cardsNotEqual } });
+    });
+
+    it("hand has more than 2 cards, return correct error", async () => {
+        const payload = {
+            split: {
+                id: 100,
+            },
+        };
+
+        const ingamePlayer = mockInGamePlayer();
+        gameData.ingame[player.profile.name] = ingamePlayer;
+        ingamePlayer.betTracks.hands[0].cards.push({ rank: "8", suit: 2 });
+
+        const result = await consumer.composeActionValidationCriteria(player, payload);
+
+        expect(result).toContainEqual({ failure: true, notice: { errorCode: noticeHelper.cantSplit } });
+    });
 });
