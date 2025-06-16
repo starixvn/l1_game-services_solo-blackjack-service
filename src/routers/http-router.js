@@ -21,14 +21,10 @@ export default class HttpRouter extends TableHttpRouter {
             }),
             (_req, res) => this.handleVoidTicket(_req, res)
         );
-
+        
         if (!this.appConfigs.disableSetResult) {
             app.post(
                 "/api/set-result",
-                utils.authentication.useAuthenticate({
-                    authUrl: this.appConfigs.apiSettings.authUrl,
-                    audiences: this.appConfigs.authenticateSettings.audiences,
-                }),
                 (_req, res) => this.handleSetResult(_req, res)
             );
         }
