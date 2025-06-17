@@ -116,4 +116,36 @@ describe("HttpRouter", () => {
             expect(res.send).toHaveBeenCalledWith(false);
         });
     });
+
+    describe("handleSetResult", () => {
+        it("should store in gameData.settlementResultFromAdmin", async () => {
+            //Arrange
+            const res = { send: jest.fn() };
+            const req = {
+                body: {
+                    name: "ceo",
+                    dealer: [
+                        { rank: "J", suit: 1 },
+                        { rank: "A", suit: 1 },
+                    ],
+                    hands: [
+                        {
+                            pos: 1,
+                            cards: [
+                                { rank: "J", suit: 1 },
+                                { rank: "A", suit: 1 },
+                            ],
+                        }
+                    ],
+                },
+            };
+
+            //Act
+            await router.handleSetResult(req, res);
+
+            // Assert
+            expect(gameData.settlementResultFromAdmin[req.body.name]).toStrictEqual(req.body);
+            expect(res.send).toHaveBeenCalledWith(true);
+        });
+    });
 });
