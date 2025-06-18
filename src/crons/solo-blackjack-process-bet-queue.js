@@ -461,7 +461,8 @@ export default class SoloBlackJackProcessBetQueue extends ProcessBetQueue {
     dealCards(playerName, { dealer, hands, deck }) {
         for (let turn = 1; turn <= 2; turn++) {
             for (const hand of hands) {
-                hand.cards.push(deck.shift());
+                hand.cards.push(this.getCard(playerName, deck, false, hand.pos));
+
                 if (turn === 2) {
                     if (isBlackjack(hand.cards)) {
                         hand.isStand = true;
